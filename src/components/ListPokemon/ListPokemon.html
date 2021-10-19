@@ -1,0 +1,46 @@
+<div id="list-pokemon-wrapper" class="grid-container">
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-12 large-12">
+            <table id="pokemon-list">
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            <input type="text" v-model="searchPokemon" class="search-input" placeholder="Search Pokemon..." v-on:keyup.enter="searchKeyword()"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <th>Pokemon Name</th>
+                        <th>Type</th>
+                        <th>Abilities</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="!isLoading" v-for="pokemon in pokemons[0]" :key="pokemon.id">
+                        <td>
+                            <img :src="pokemon.pokemon_img" :alt="pokemon.pokemon_name" class="pokemon-img" />
+                        </td>
+                        <td>
+                           {{ pokemon.pokemon_name }}
+                           <router-link :to="pokemon.link">Go</router-link>
+                        </td>
+                        <td>{{ pokemon.pokemon_types }}</td>
+                        <td>{{ pokemon.pokemon_abilities }}</td>
+                    </tr>
+                    <tr v-if="isLoading">
+                        <td colspan="4">
+                            <p class="text-center">Loading Pokedex. Please Wait.</p>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" style="text-align: center;">
+                            <button type="button" class="alert button" @click="loadMore()">Load More</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
